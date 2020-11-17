@@ -6,10 +6,11 @@ from datetime import timedelta
 class Calculester:
 
     # Inits cal with moods and friends
-    def __init__(self):
+    def __init__(self, fIds):
         print('cal is awake')
         self.moods = ['happy', 'sad', 'low battery', 'horny', 'grumpy', 'silly', '101101010', 'big dick mood', 'metalic', 'playful', 'off', 'on', 'sentient']
-        self.friends = ['bitch', 'cocksucker', '90% mtn dew', 'THE ginger', 'kaisa', 'village idiot', 'dm', 'Montana', 'nard', 'pussy', 'everyone']
+        self.friends = fIds
+        self.nard = ['311587180868796417 ']
 
     # Picks a random person from the list
     def pick_friend(self):

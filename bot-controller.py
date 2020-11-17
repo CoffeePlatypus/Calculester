@@ -7,7 +7,7 @@ from env import Env
 from discord.ext import commands
 
 ENV = Env()
-cal = Calculester()
+cal = Calculester(ENV.IDs)
 
 bot = commands.Bot(command_prefix='!')
 
@@ -21,11 +21,12 @@ async def street_side(ctx):
 
 @bot.command(name='pick-person', help='picks a random person')
 async def pick_person(ctx):
-    await ctx.send(cal.pick_friend())
+    await ctx.send(f'<@{cal.pick_friend()}>')
 
 @bot.command(name='fuck', help=':P')
 async def fuck(ctx):
-    await ctx.send(f'fuck @{cal.pick_friend()}')
+    await ctx.send(f'fuck <@{cal.pick_friend()}>')
+    await ctx.message.delete()
 
 @bot.command(name='poop', help='💩')
 async def poop(ctx):
@@ -38,21 +39,25 @@ async def unshit(ctx, thing: str):
     else:
         await ctx.send('💩↩️')
 
-@bot.command(pass_context = True, name='tell', help='')
+@bot.command(name='tell', help='person to tell followed by message')
 async def tell(ctx, member: discord.Member, *, content):
     channel = await member.create_dm()
     await channel.send(content)
+    await ctx.message.delete()
 
-@bot.command(name='users')
-async def users(ctx):
-    for guild in bot.guilds:
-        for member in guild.members:
-            print(member) # why doesn't this work
+@bot.command(name='summon', help='summons the goon squad')
+async def summon(ctx):
+    mem = bot.get_user(cal.nard[0])
+    print(mem)
+    # channel = await mem.create_dm()
+    # await channel.send('summon')
+    await ctx.send('summon test')
+    await ctx.message.delete()
 
 @bot.command(name='printer')
-async def printer(ctx, member: discord.Member):
-    print(member)
-    await ctx.send('print')
-
+async def printer(ctx):
+    print(ctx.message)
+    await ctx.send('tomato')
+    await ctx.message.delete()
 
 bot.run(ENV.TOKEN)
