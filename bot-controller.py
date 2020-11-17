@@ -29,10 +29,16 @@ async def fuck(ctx):
 
 @bot.command(name='poop', help='💩')
 async def poop(ctx):
-    print(ctx.guild)
     await ctx.send('💩')
 
-@bot.command(pass_context = True, name='tell', help='makes calculester send DMs')
+@bot.command(name='unshit')
+async def unshit(ctx, thing: str):
+    if thing == 'pants': 
+        await ctx.send('💩↩️👖')
+    else:
+        await ctx.send('💩↩️')
+
+@bot.command(pass_context = True, name='tell', help='')
 async def tell(ctx, member: discord.Member, *, content):
     channel = await member.create_dm()
     await channel.send(content)
@@ -41,6 +47,12 @@ async def tell(ctx, member: discord.Member, *, content):
 async def users(ctx):
     for guild in bot.guilds:
         for member in guild.members:
-            print(member)
+            print(member) # why doesn't this work
+
+@bot.command(name='printer')
+async def printer(ctx, member: discord.Member):
+    print(member)
+    await ctx.send('print')
+
 
 bot.run(ENV.TOKEN)
