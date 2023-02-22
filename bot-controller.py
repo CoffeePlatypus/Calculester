@@ -5,6 +5,7 @@ from calculester import Calculester
 from env import Env
 from calsreddit import CalsReddit
 from discord.ext import commands, tasks
+from datetime import datetime
 
 ENV = Env()
 cal = Calculester(ENV.fIDs)
@@ -83,7 +84,7 @@ async def printer(ctx):
     # chan = bot.get_channel(734945466982203526)
     # chan = bot.get_channel(777634476972572693)
     # print(chan)
-    # print(ctx.channel.id)
+    print(ctx.channel.id)
     cal.check_events()
     await ctx.message.add_reaction('🍆')
 
@@ -94,6 +95,14 @@ async def called_once_a_day():
     todayEvents = cal.check_events()
     if todayEvents:
         await message_channel.send(todayEvents)
+    lateNit = bot.get_channel(ENV.lateNightId)
+    print(f"Got channel {lateNit}")
+    
+    todayEvents = cal.check_roomate_events()
+    if todayEvents:
+        await lateNit.send(todayEvents)
+    
+
 
 @called_once_a_day.before_loop
 async def before():

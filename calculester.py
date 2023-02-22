@@ -38,6 +38,29 @@ class Calculester:
             return self.holidays[todayString]
         return False
 
+    def check_roomate_events(self):
+        today = datetime.today()
+        events = []
+        if today.day == 28 :
+            events.append('Pay rent')
+        if today.weekday() == 2:
+            events.append('Take out trash')
+            d = today.isocalendar()
+            if d[1] % 2 == 0:
+                events.append('Take out recycling')
+        
+        if events != []:
+            return '\n'.join(events)
+        return False
+
+
+
+    def check_timesheet(self):
+        d = datetime.today().isocalendar()
+        if d[2] == 5 :
+            return d[1] % 2 != 0
+        return False
+
     # A spaghetti list of random message logic
     # not used by actual bot logic
     def parse_message(self, message):
@@ -54,6 +77,8 @@ class Calculester:
             return f'{self.pick_mood()}'
         else:
             return ''
+
+    
         
 
 
